@@ -67,13 +67,13 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                 this.l('Country'),
                 '/app/country',
                 'fas fa-flag',
-                'Pages.Users'
+                // 'Pages.Country'
             ),
             new MenuItem(
                 this.l('State'),
                 '/app/state',
                 'fas fa-city',
-                'Pages.Users'
+                // 'Pages.State'
             ),
             new MenuItem(this.l('MultiLevelMenu'), '', 'fas fa-circle', '', [
                 new MenuItem('ASP.NET Boilerplate', '', 'fas fa-dot-circle', '', [
