@@ -23,7 +23,6 @@ export class CountryComponent extends AppComponentBase {
     super(Injector);
   }
   createcountry() {
-    console.log('Create Country Hit');
     this.showCreateOrEditUserDialog();
   }
 
