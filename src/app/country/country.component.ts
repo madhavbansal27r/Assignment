@@ -18,7 +18,6 @@ export class CountryComponent {
 
   constructor(private _modalService: BsModalService) { }
   createcountry() {
-    console.log('Create Country Hit');
     this.showCreateOrEditUserDialog();
   }
 
