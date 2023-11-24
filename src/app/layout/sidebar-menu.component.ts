@@ -65,13 +65,13 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
             ),
             new MenuItem(
                 this.l('Country'),
-                '/app/users',
+                '/app/country',
                 'fas fa-flag',
                 'Pages.Users'
             ),
             new MenuItem(
                 this.l('State'),
-                '/app/users',
+                '/app/state',
                 'fas fa-city',
                 'Pages.Users'
             ),

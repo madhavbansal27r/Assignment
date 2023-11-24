@@ -39,6 +39,7 @@ import { SidebarLogoComponent } from './layout/sidebar-logo.component';
 import { SidebarUserPanelComponent } from './layout/sidebar-user-panel.component';
 import { SidebarMenuComponent } from './layout/sidebar-menu.component';
 import { CountryComponent } from './country/country.component';
+import { StateComponent } from './state/state.component';
 
 @NgModule({
     declarations: [
@@ -69,7 +70,8 @@ import { CountryComponent } from './country/country.component';
         SidebarLogoComponent,
         SidebarUserPanelComponent,
         SidebarMenuComponent,
-        CountryComponent
+        CountryComponent,
+        StateComponent
     ],
     imports: [
         CommonModule,
