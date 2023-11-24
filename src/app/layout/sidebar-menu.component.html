@@ -6,8 +6,8 @@
     </ng-container>
   </ul>
 </nav>
-<!-- {{menuItems | json}} -->
 <ng-template #sidebarInner let-item="item">
+
   <li *ngIf="isMenuItemVisible(item)" class="nav-item" [class.menu-open]="!item.isCollapsed"
     [class.has-treeview]="item.children">
     <a *ngIf="item.route && item.route.indexOf('http') != 0" class="nav-link" [routerLink]="item.route"

@@ -22,8 +22,8 @@ import { StateComponent } from './state/state.component';
                     { path: 'users', component: UsersComponent, data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard] },
                     { path: 'roles', component: RolesComponent, data: { permission: 'Pages.Roles' }, canActivate: [AppRouteGuard] },
                     { path: 'tenants', component: TenantsComponent, data: { permission: 'Pages.Tenants' }, canActivate: [AppRouteGuard] },
-                    { path: 'country', component: CountryComponent, data: { permission: 'Pages.Country' }, canActivate: [AppRouteGuard] },
-                    { path: 'state', component: StateComponent, data: { permission: 'Pages.State' }, canActivate: [AppRouteGuard] },
+                    { path: 'country', component: CountryComponent, canActivate: [AppRouteGuard] },
+                    { path: 'state', component: StateComponent, canActivate: [AppRouteGuard] },
                     { path: 'about', component: AboutComponent, canActivate: [AppRouteGuard] },
                     { path: 'update-password', component: ChangePasswordComponent, canActivate: [AppRouteGuard] }
                 ]
