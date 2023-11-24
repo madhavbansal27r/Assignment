@@ -40,6 +40,8 @@ import { SidebarUserPanelComponent } from './layout/sidebar-user-panel.component
 import { SidebarMenuComponent } from './layout/sidebar-menu.component';
 import { CountryComponent } from './country/country.component';
 import { StateComponent } from './state/state.component';
+import { EditCountryComponent } from './country/edit-country/edit-country.component';
+import { CreateCountryComponent } from './country/create-country/create-country.component';
 
 @NgModule({
     declarations: [
@@ -71,7 +73,10 @@ import { StateComponent } from './state/state.component';
         SidebarUserPanelComponent,
         SidebarMenuComponent,
         CountryComponent,
-        StateComponent
+        StateComponent,
+
+        EditCountryComponent,
+        CreateCountryComponent
     ],
     imports: [
         CommonModule,
@@ -90,4 +95,4 @@ import { StateComponent } from './state/state.component';
     ],
     providers: []
 })
-export class AppModule {}
+export class AppModule { }
