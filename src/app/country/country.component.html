@@ -101,16 +101,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr  
+                                <tr
                                 >
                                     <td>1</td>
                                     <td>India</td>
                                     <td>
-                                        <button type="button" class="btn btn-sm bg-secondary" click ="editUser(1)">
+                                        <button type="button" class="btn btn-sm bg-secondary" (click) ="editUser(1)">
                                             <i class="fas fa-pencil-alt"></i>
                                             {{ "Edit" | localize }}
                                         </button>
-                     <button type="button" class="btn btn-sm bg-danger mx-2" >
+                     <button type="button" class="btn btn-sm bg-danger mx-2"  (click) ="delete(1)">
                                             <i class="fas fa-trash"></i>
                                             {{ "Delete" | localize }}
                                         </button>
@@ -138,7 +138,7 @@
                                 </abp-pagination-controls>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
