@@ -67,7 +67,7 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                 this.l('Country'),
                 '/app/country',
                 'fas fa-flag',
-                // 'Pages.Country'
+                'Pages.Countrys'
             ),
             new MenuItem(
                 this.l('State'),
