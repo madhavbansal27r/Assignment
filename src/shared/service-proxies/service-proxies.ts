@@ -303,7 +303,7 @@ export class CountryServiceProxy {
             })
         };
 
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        let result= this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
             return this.processGetAll(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -315,6 +315,7 @@ export class CountryServiceProxy {
             } else
                 return _observableThrow(response_) as any as Observable<CountryDtoPagedResultDto>;
         }));
+        return result;
     }
 
     protected processGetAll(response: HttpResponseBase): Observable<CountryDtoPagedResultDto> {
