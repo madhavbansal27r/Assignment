@@ -24,18 +24,18 @@ export class EditCountryComponent extends AppComponentBase implements OnInit {
     // service to fetch data
   }
 
-  save(updatecountry:any): void {
-    this.saving = true;
-    this._userService.update_country(updatecountry).subscribe(
-      () => {
-        this.notify.info(this.l('UpdatedSucessfully'));
-        this.bsModalRef.hide();
-        // this.onSave.emit();
-      },
-      () => {
-        this.saving = false;
-      }
-    );
-  }
+   save(updatecountry:any): void {
+  //   this.saving = true;
+  //   this._userService.update_country(updatecountry).subscribe(
+  //     () => {
+  //       this.notify.info(this.l('UpdatedSucessfully'));
+  //       this.bsModalRef.hide();
+  //       // this.onSave.emit();
+  //     },
+  //     () => {
+  //       this.saving = false;
+  //     }
+  //   );
+   }
 
 }

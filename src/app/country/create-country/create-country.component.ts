@@ -24,15 +24,15 @@ export class CreateCountryComponent extends AppComponentBase implements OnInit {
 
     // this.user.roleNames = this.getCheckedRoles();
 
-    this._userService.create_country(this.countryName).subscribe(
-      () => {
-        this.notify.info(this.l('SavedSuccessfully'));
-        this.bsModalRef.hide();
-        // this.onSave.emit();
-      },
-      () => {
-        this.saving = false;
-      }
-    );
+    // this._userService.create_country(this.countryName).subscribe(
+    //   () => {
+    //     this.notify.info(this.l('SavedSuccessfully'));
+    //     this.bsModalRef.hide();
+    //     // this.onSave.emit();
+    //   },
+    //   () => {
+    //     this.saving = false;
+    //   }
+    // );
   }
 }

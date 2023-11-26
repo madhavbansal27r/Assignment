@@ -5,6 +5,7 @@ import { CreateCountryComponent } from './create-country/create-country.componen
 import { EditCountryComponent } from './edit-country/edit-country.component';
 import { AppComponentBase } from '@shared/app-component-base';
 import { UserServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CountryServiceProxy } from '@shared/service-proxies/service-proxies';
 
 // import {
 //   PagedListingComponentBase,
@@ -32,16 +33,16 @@ export class CountryComponent extends AppComponentBase implements OnInit {
     { "id": 10, "name": "Grace" }
   ];
 
-  constructor(private _modalService: BsModalService, Injector: Injector, public _userService: UserServiceProxy) {
+  constructor(private _modalService: BsModalService, Injector: Injector, public _userService: UserServiceProxy,public _countryservice:CountryServiceProxy) {
     super(Injector);
   }
   ngOnInit(): void {
     // call the service to fetch all country
-    this._userService.Get_Country().subscribe((data: any) => {
-      this.Countries = data;
-      // this.showPaging(result, pageNumber);
-    });
-    this.Countries = this.tempdata;
+    // this._countryservice.getAll().subscribe((data: any) => {
+    //   this.Countries = data;
+    //   // this.showPaging(result, pageNumber);
+    // });
+    // this.Countries = this.tempdata;
   }
   createcountry() {
     this.showCreateOrEditUserDialog();
