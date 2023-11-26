@@ -1803,16 +1803,15 @@ export class UserServiceProxy {
                 return _observableThrow(response_) as any as Observable<UserDtoPagedResultDto>;
         }));
     }
-
     /**
-    //  * @param keyword (optional)
-    //  * @param isActive (optional)
-    //  * @param skipCount (optional)
-    //  * @param maxResultCount (optional)
+     * @param keyword (optional)
+     * @param isActive (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
-    Get_Country() {
-        let url_ = this.baseUrl + "/api/services/app/User/GetAll_Country";
+    Get_Country(): Observable<any> {
+        let url_ = this.baseUrl + "/api/services/app/User/GetAll?";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: any = {
@@ -1823,8 +1822,22 @@ export class UserServiceProxy {
             })
         };
 
-        return this.http.get(url_, options_);
+        let result = this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<any>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<any>;
+        }));
+        return result;
     }
+
+
 
     protected processGetAll(response: HttpResponseBase): Observable<UserDtoPagedResultDto> {
         const status = response.status;
