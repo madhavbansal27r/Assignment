@@ -295,6 +295,17 @@ export class CountryServiceProxy {
             url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
+        this.http.get(url_, { responseType: 'json' }).subscribe(
+            (response) => {
+                // Handle the response here
+                let da = response;
+                console.log(response);
+            },
+            (error) => {
+                // Handle errors here
+                console.error(error);
+            });
+
         let options_ : any = {
             observe: "response",
             responseType: "blob",

@@ -3,14 +3,20 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CreateCountryComponent } from './create-country/create-country.component';
 import { EditCountryComponent } from './edit-country/edit-country.component';
-import { AppComponentBase } from '@shared/app-component-base';
-import { UserServiceProxy } from '@shared/service-proxies/service-proxies';
-import { CountryServiceProxy } from '@shared/service-proxies/service-proxies';
 
-// import {
-//   PagedListingComponentBase,
-//   PagedRequestDto
-// } from 'shared/paged-listing-component-base';
+import { CountryDto, CountryDtoPagedResultDto } from '@shared/service-proxies/service-proxies';
+import { CountryServiceProxy } from '@shared/service-proxies/service-proxies';
+import { PagedListingComponentBase, PagedRequestDto } from '@shared/paged-listing-component-base';
+// import { Component, Injector } from '@angular/core';
+import { finalize } from 'rxjs/operators';
+
+
+class PagedCountryRequestDto extends PagedRequestDto {
+  keyword: string;
+  isActive: boolean | null;
+}
+
+
 @Component({
   selector: 'app-country',
   templateUrl: './country.component.html',
@@ -18,55 +24,89 @@ import { CountryServiceProxy } from '@shared/service-proxies/service-proxies';
   animations: [appModuleAnimation()]
 
 })
-export class CountryComponent extends AppComponentBase implements OnInit {
-  Countries: any;
-  tempdata = [
-    { "id": 1, "name": "John" },
-    { "id": 2, "name": "Jane" },
-    { "id": 3, "name": "Alice" },
-    { "id": 4, "name": "Bob" },
-    { "id": 5, "name": "Eve" },
-    { "id": 6, "name": "Charlie" },
-    { "id": 7, "name": "David" },
-    { "id": 8, "name": "Emily" },
-    { "id": 9, "name": "Frank" },
-    { "id": 10, "name": "Grace" }
-  ];
 
-  constructor(private _modalService: BsModalService, Injector: Injector, public _userService: UserServiceProxy,public _countryservice:CountryServiceProxy) {
-    super(Injector);
+export class CountryComponent extends PagedListingComponentBase<CountryDto> {
+  country: CountryDto[] = [];
+  keyword = '';
+  isActive: boolean | null;
+  advancedFiltersVisible = false;
+
+  constructor(
+    injector: Injector,
+    // private _userService: UserServiceProxy,
+    private _modalService: BsModalService,
+    private _countryService: CountryServiceProxy,
+  ) {
+    super(injector);
   }
-  ngOnInit(): void {
-    // call the service to fetch all country
-    // this._countryservice.getAll().subscribe((data: any) => {
-    //   this.Countries = data;
-    //   // this.showPaging(result, pageNumber);
-    // });
-    // this.Countries = this.tempdata;
-  }
-  createcountry() {
+
+
+  createUser(): void {
     this.showCreateOrEditUserDialog();
   }
 
-  protected delete(id: any): void {
+  editUser(country: CountryDto): void {
+    this.showCreateOrEditUserDialog(country.id);
+  }
+
+  // public resetPassword(country: CountryDto): void {
+  //   this.showResetPasswordUserDialog(country.id);
+  // }
+
+  clearFilters(): void {
+    this.keyword = '';
+    this.isActive = undefined;
+    this.getDataPage(1);
+  }
+
+
+
+  protected list(request: PagedCountryRequestDto,pageNumber: number,finishedCallback: Function): void {
+    request.keyword = this.keyword;
+    request.isActive = this.isActive;
+
+    this._countryService
+      .getAll(
+        request.keyword,
+        request.skipCount,
+        request.maxResultCount
+      )
+      .pipe(
+        finalize(() => {
+          finishedCallback();
+        })
+      )
+      .subscribe((result: CountryDtoPagedResultDto) => {
+        this.country = result.items;
+        this.showPaging(result, pageNumber);
+      });
+  }
+
+  protected delete(country: CountryDto): void {
     abp.message.confirm(
-      this.l('UserDeleteWarningMessage', id),
+      this.l('UserDeleteWarningMessage', country.name),
       undefined,
       (result: boolean) => {
         if (result) {
-          this._userService.delete(id).subscribe(() => {
+          this._countryService.delete(country.id).subscribe(() => {
             abp.notify.success(this.l('SuccessfullyDeleted'));
-            // this.refresh();
+            this.refresh();
           });
         }
       }
     );
   }
 
-  editUser(id: any) {
-    this.showCreateOrEditUserDialog(id);
-  }
-  private showCreateOrEditUserDialog(id?: number): void {
+  // private showResetPasswordUserDialog(id?: number): void {
+  //   this._modalService.show(ResetPasswordDialogComponent, {
+  //     class: 'modal-lg',
+  //     initialState: {
+  //       id: id,
+  //     },
+  //   });
+  // }
+
+  private showCreateOrEditUserDialog(id?: any): void {
     let createOrEditUserDialog: BsModalRef;
     if (!id) {
       createOrEditUserDialog = this._modalService.show(
@@ -87,11 +127,8 @@ export class CountryComponent extends AppComponentBase implements OnInit {
       );
     }
 
-
-
-
-    // createOrEditUserDialog.content.onSave.subscribe(() => {
-    //   this.refresh();
-    // });
+    createOrEditUserDialog.content.onSave.subscribe(() => {
+      this.refresh();
+    });
   }
 }
