@@ -18,18 +18,36 @@ import { UserServiceProxy } from '@shared/service-proxies/service-proxies';
 
 })
 export class CountryComponent extends AppComponentBase implements OnInit {
-  users: [];
-  constructor(private _modalService: BsModalService, Injector: Injector,public _userService:UserServiceProxy) {
+  Countries: any;
+  tempdata = [
+    { "id": 1, "name": "John" },
+    { "id": 2, "name": "Jane" },
+    { "id": 3, "name": "Alice" },
+    { "id": 4, "name": "Bob" },
+    { "id": 5, "name": "Eve" },
+    { "id": 6, "name": "Charlie" },
+    { "id": 7, "name": "David" },
+    { "id": 8, "name": "Emily" },
+    { "id": 9, "name": "Frank" },
+    { "id": 10, "name": "Grace" }
+  ];
+
+  constructor(private _modalService: BsModalService, Injector: Injector, public _userService: UserServiceProxy) {
     super(Injector);
   }
   ngOnInit(): void {
     // call the service to fetch all country
+    this._userService.Get_Country().subscribe((data: any) => {
+      this.Countries = data;
+      // this.showPaging(result, pageNumber);
+    });
+    this.Countries = this.tempdata;
   }
   createcountry() {
     this.showCreateOrEditUserDialog();
   }
 
-  protected delete(id:any): void {
+  protected delete(id: any): void {
     abp.message.confirm(
       this.l('UserDeleteWarningMessage', id),
       undefined,
@@ -44,7 +62,7 @@ export class CountryComponent extends AppComponentBase implements OnInit {
     );
   }
 
-   editUser(id: any) {
+  editUser(id: any) {
     this.showCreateOrEditUserDialog(id);
   }
   private showCreateOrEditUserDialog(id?: number): void {

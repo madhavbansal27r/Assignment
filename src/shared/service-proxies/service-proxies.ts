@@ -1148,7 +1148,7 @@ export class UserServiceProxy {
      * @param body (optional)
      * @return Success
      */
-    create_country(data: any): Observable<UserDto> {
+    create_country(data: any) {
         let url_ = this.baseUrl + "/api/services/app/User/Create_Country";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1239,7 +1239,7 @@ export class UserServiceProxy {
      * @param body (optional)
      * @return Success
      */
-    update_country(data: any): Observable<UserDto> {
+    update_country(data: any) {
         let url_ = this.baseUrl + "/api/services/app/User/Update_Country";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1328,7 +1328,7 @@ export class UserServiceProxy {
      * @param id (optional)
      * @return Success
      */
-    delete_country(id: any): Observable<void> {
+    delete_country(id: any) {
         let url_ = this.baseUrl + "/api/services/app/User/Delete_Country?";
         // if (id === null)
         //     throw new Error("The parameter 'id' cannot be null.");
@@ -1802,6 +1802,28 @@ export class UserServiceProxy {
             } else
                 return _observableThrow(response_) as any as Observable<UserDtoPagedResultDto>;
         }));
+    }
+
+    /**
+    //  * @param keyword (optional)
+    //  * @param isActive (optional)
+    //  * @param skipCount (optional)
+    //  * @param maxResultCount (optional)
+     * @return Success
+     */
+    Get_Country() {
+        let url_ = this.baseUrl + "/api/services/app/User/GetAll_Country";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.get(url_, options_);
     }
 
     protected processGetAll(response: HttpResponseBase): Observable<UserDtoPagedResultDto> {
