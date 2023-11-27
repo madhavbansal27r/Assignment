@@ -16,7 +16,7 @@ export class CreateStateComponent extends AppComponentBase implements OnInit {
   }
   saving = false;
 
-
+  countryid: any;
   state = new StateDto();
   finalstate = new StateDto();
   countrydata: any;
@@ -34,7 +34,15 @@ export class CreateStateComponent extends AppComponentBase implements OnInit {
   gettingvalues() {
     let statename = this.state.sName; // this is ok
     let selectedcountryname = this.state.countryName; // assuming you have a property in 'state' for the selected country code
+    //get the id of selectedcountryname
+    for (let country of this.countrydata) {
+      if (selectedcountryname == country.name) {
+        this.countryid = country.id;
+      }
+    }
 
+    this.finalstate.sName = statename;
+    this.finalstate.countryId = this.countryid;
   }
 
 
