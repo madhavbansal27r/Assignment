@@ -1,1 +1,19 @@
-<p>edit-state works!</p>
+<form class="form-horizontal" autocomplete="off" #createUserModal="ngForm" (ngSubmit)="save()">
+    <abp-modal-header [title]="'Edit State' | localize" (onCloseClick)="bsModalRef.hide()">
+    </abp-modal-header>
+    <div class="modal-body">
+        <div class="form-group row required" [class.has-error]="!nameEl.valid && nameEl.touched">
+            <label class="col-md-3 col-form-label" for="name">
+                {{ "Name" | localize }}
+            </label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" name="name" id="name" required maxlength="32"
+                    [(ngModel)]="state.sName" #nameEl="ngModel" />
+                <div *ngIf="!nameEl.valid && nameEl.touched" class="help-block error-text">Name is required.</div>
+            </div>
+        </div>
+    </div>
+    <abp-modal-footer (onCancelClick)="bsModalRef.hide()" [cancelDisabled]="saving"
+        [saveDisabled]="!createUserModal.form.valid || saving">
+    </abp-modal-footer>
+</form>

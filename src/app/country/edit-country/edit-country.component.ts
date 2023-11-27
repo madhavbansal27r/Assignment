@@ -12,7 +12,7 @@ export class EditCountryComponent extends AppComponentBase implements OnInit {
 
   @Output() onSave = new EventEmitter<any>();
 
-  constructor(public bsModalRef: BsModalRef,public _countryservice: CountryServiceProxy,Injector:Injector) {
+  constructor(public bsModalRef: BsModalRef, public _countryservice: CountryServiceProxy, Injector: Injector) {
     super(Injector);
   }
   saving = false;
