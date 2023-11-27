@@ -274,7 +274,7 @@ export class CountryServiceProxy {
 
 
     getcountrydata(): Observable<any> {
-        let url_ = `${this.baseUrl}/api/services/app/Country/GetAll`;
+        let url_ = `${this.baseUrl}/api/services/app/Country/GetAll?SkipCount=0&MaxResultCount=100`;
 
         return this.http.get(url_, { responseType: 'json' });
       }
