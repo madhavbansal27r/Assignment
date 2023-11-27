@@ -42,6 +42,8 @@ import { CountryComponent } from './country/country.component';
 import { StateComponent } from './state/state.component';
 import { EditCountryComponent } from './country/edit-country/edit-country.component';
 import { CreateCountryComponent } from './country/create-country/create-country.component';
+import { CreateStateComponent } from './state/create-state/create-state.component';
+import { EditStateComponent } from './state/edit-state/edit-state.component';
 
 @NgModule({
     declarations: [
@@ -76,7 +78,9 @@ import { CreateCountryComponent } from './country/create-country/create-country.
         StateComponent,
 
         EditCountryComponent,
-        CreateCountryComponent
+        CreateCountryComponent,
+        CreateStateComponent,
+        EditStateComponent
     ],
     imports: [
         CommonModule,
