@@ -8,6 +8,8 @@ import { CountryDto, CountryDtoPagedResultDto, CountryServiceProxy, UserServiceP
 // import { CustomApiService } from '@shared/service-proxies/service-proxies';
 import { PagedListingComponentBase, PagedRequestDto } from '@shared/paged-listing-component-base';
 import { finalize } from 'rxjs/operators';
+import { CreateCountryComponent } from './create-country/create-country.component';
+import { EditCountryComponent } from './edit-country/edit-country.component';
 
 // import {
 //   PagedListingComponentBase,
@@ -24,12 +26,12 @@ class PagedCompanysRequestDto extends PagedRequestDto {
   styleUrls: ['./country.component.css'],
   animations: [appModuleAnimation()]
 })
-export class CountryComponent extends PagedListingComponentBase<CountryDto> {
+export class CountryComponent extends PagedListingComponentBase<CountryDto> implements OnInit {
   countrys: CountryDto[] = [];
   keyword = '';
   isActive: boolean | null;
   advancedFiltersVisible = false;
- 
+  datalength: number;
 
   constructor(
     injector: Injector,
@@ -40,11 +42,11 @@ export class CountryComponent extends PagedListingComponentBase<CountryDto> {
   }
 
   createCountry(): void {
-    // this.showCreateOrEditCountryDialog();
+    this.showCreateOrEditCountryDialog();
   }
 
   editCountry(country: CountryDto): void {
-   // this.showCreateOrEditCountryDialog(country.id);
+    this.showCreateOrEditCountryDialog(country.id);
   }
 
   clearFilters(): void {
@@ -73,7 +75,14 @@ export class CountryComponent extends PagedListingComponentBase<CountryDto> {
       .subscribe((result: CountryDtoPagedResultDto) => {
         this.countrys = result.items;
         this.showPaging(result, pageNumber);
+        this.totaldatacount();
       });
+
+  }
+
+  totaldatacount() {
+    this.datalength = this.countrys.length;
+
   }
 
   protected delete(country: CountryDto): void {
@@ -90,25 +99,25 @@ export class CountryComponent extends PagedListingComponentBase<CountryDto> {
       }
     );
   }
-  private showCreateOrEditUserDialog(id?: string): void {
+  private showCreateOrEditCountryDialog(id?: any): void {
     let createOrEditCountryDialog: BsModalRef;
     if (!id) {
-      // createOrEditUserDialog = this._modalService.show(
-      //   CreateUserDialogComponent,
-      //   {
-      //     class: 'modal-lg',
-      //   }
-      // );
+      createOrEditCountryDialog = this._modalService.show(
+        CreateCountryComponent,
+        {
+          class: 'modal-lg',
+        }
+      );
     } else {
-      // createOrEditUserDialog = this._modalService.show(
-      //   EditUserDialogComponent,
-      //   {
-      //     class: 'modal-lg',
-      //     initialState: {
-      //       id: id,
-      //     },
-      //   }
-      // );
+      createOrEditCountryDialog = this._modalService.show(
+        EditCountryComponent,
+        {
+          class: 'modal-lg',
+          initialState: {
+            id: id,
+          },
+        }
+      );
     }
 
     createOrEditCountryDialog.content.onSave.subscribe(() => {

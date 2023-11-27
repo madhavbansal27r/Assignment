@@ -22,21 +22,21 @@
                         <div class="col-md-6">&emsp;</div>
                         <div class="col-md-6">
                             <div class="input-group">
-                                <div class="input-group-prepend">
+                                <!-- <div class="input-group-prepend">
                                     <button type="button" class="btn bg-blue" (click)="getDataPage(1)">
                                         <i class="fas fa-search"></i>
                                     </button>
-                                </div>
-                                <input type="text" class="form-control" name="keyword"
+                                </div> -->
+                                <!-- <input type="text" class="form-control" name="keyword"
                                     [placeholder]="'SearchWithThreeDot' | localize" [(ngModel)]="keyword"
-                                    (keyup.enter)="getDataPage(1)" />
-                                <div class="input-group-append">
+                                    (keyup.enter)="getDataPage(1)" /> -->
+                                <!-- <div class="input-group-append">
                                     <button type="button" class="btn btn-default"
                                         (click)="advancedFiltersVisible = !advancedFiltersVisible">
                                         <i class="fas" [class.fa-angle-up]="advancedFiltersVisible"
                                             [class.fa-angle-down]="!advancedFiltersVisible"></i>
                                     </button>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -58,21 +58,20 @@
                             <table class="table table-striped table-bordered" [busy]="isTableLoading">
                                 <thead class="bg-light">
                                     <tr>
+                                        <th>{{ "Serial No." | localize }}</th>
                                         <th>{{ "Country Name" | localize }}</th>
                                         <th style="width: 310px;">{{ "Actions" | localize }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="
-                  let country of countrys
-                    | paginate
-                      : {
-                          id: 'server',
-                          itemsPerPage: pageSize,
-                          currentPage: pageNumber,
-                          totalItems: totalItems
-                        }
-                ">
+                                    <tr *ngFor="let country of countrys | paginate: {
+                                        id: 'server',
+                                        itemsPerPage: pageSize,
+                                        currentPage: pageNumber,
+                                        totalItems: totalItems
+                                        };let i = index
+                                    ">
+                                        <td>{{ i+1 }}</td>
                                         <td>{{ country.name }}</td>
                                         <td>
                                             <button type="button" class="btn btn-sm bg-secondary"
@@ -101,6 +100,8 @@
                             <div class="col-sm-4 col-12 text-center">
                                 <p class="mb-0 my-2">
                                     {{ "TotalRecordsCount" | localize: totalItems }}
+
+                                    {{datalength}}
                                 </p>
                             </div>
                             <div class="col-sm-4 col-12">

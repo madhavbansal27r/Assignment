@@ -1,5 +1,5 @@
-<form class="form-horizontal" autocomplete="off" #createUserModal="ngForm" (ngSubmit)="save(country)">
-    <abp-modal-header [title]="'Create Country' | localize" (onCloseClick)="bsModalRef.hide()">
+<form class="form-horizontal" autocomplete="off" #createUserModal="ngForm" (ngSubmit)="save()">
+    <abp-modal-header [title]="'Edit Country' | localize" (onCloseClick)="bsModalRef.hide()">
     </abp-modal-header>
     <div class="modal-body">
         <div class="form-group row required" [class.has-error]="!nameEl.valid && nameEl.touched">
@@ -13,6 +13,7 @@
             </div>
         </div>
     </div>
-    <abp-modal-footer (onCancelClick)="bsModalRef.hide()" [saveDisabled]="!createUserModal.form.valid || saving">
+    <abp-modal-footer (onCancelClick)="bsModalRef.hide()" [cancelDisabled]="saving"
+        [saveDisabled]="!createUserModal.form.valid || saving">
     </abp-modal-footer>
 </form>

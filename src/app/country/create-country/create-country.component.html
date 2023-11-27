@@ -8,7 +8,7 @@
             </label>
             <div class="col-md-9">
                 <input type="text" class="form-control" name="name" id="name" required maxlength="32"
-                    [(ngModel)]="countryName" #nameEl="ngModel" />
+                    [(ngModel)]="country.name" #nameEl="ngModel" />
                 <div *ngIf="!nameEl.valid && nameEl.touched" class="help-block error-text">Name is required.</div>
             </div>
         </div>

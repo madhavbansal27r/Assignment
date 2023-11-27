@@ -1,6 +1,6 @@
-import { Component, HostListener, Injector, OnInit } from '@angular/core';
+import { Component, EventEmitter, HostListener, Injector, OnInit, Output } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
-import { UserServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CountryDto, CountryServiceProxy, UserServiceProxy } from '@shared/service-proxies/service-proxies';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -9,30 +9,30 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./create-country.component.css']
 })
 export class CreateCountryComponent extends AppComponentBase implements OnInit {
-  constructor(public bsModalRef: BsModalRef, public _userService: UserServiceProxy, injector: Injector,) {
+
+  @Output() onSave = new EventEmitter<any>();
+  constructor(public bsModalRef: BsModalRef, public _countryservice: CountryServiceProxy, injector: Injector,) {
     super(injector);
   }
-
   saving = false;
-  countryName: string = '';
+  country = new CountryDto();
   ngOnInit(): void {
   }
-
 
   save(): void {
     this.saving = true;
 
     // this.user.roleNames = this.getCheckedRoles();
 
-    // this._userService.create_country(this.countryName).subscribe(
-    //   () => {
-    //     this.notify.info(this.l('SavedSuccessfully'));
-    //     this.bsModalRef.hide();
-    //     // this.onSave.emit();
-    //   },
-    //   () => {
-    //     this.saving = false;
-    //   }
-    // );
+    this._countryservice.create(this.country).subscribe(
+      () => {
+        this.notify.info(this.l('SavedSuccessfully'));
+        this.bsModalRef.hide();
+        this.onSave.emit();
+      },
+      () => {
+        this.saving = false;
+      }
+    );
   }
 }
