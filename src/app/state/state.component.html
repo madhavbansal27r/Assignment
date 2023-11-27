@@ -3,12 +3,12 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-6">
-                    <h1>{{ "Country" | localize }}</h1>
+                    <h1>{{ "State" | localize }}</h1>
                 </div>
                 <div class="col-6 text-right">
-                    <a href="javascript:;" class="btn bg-blue" (click)="createCountry()">
+                    <a href="javascript:;" class="btn bg-blue" (click)="createState()">
                         <i class="fa fa-plus-square"></i>
-                        {{ "Create" | localize }}
+                        {{ "Create State" | localize }}
                     </a>
                 </div>
             </div>
@@ -60,11 +60,12 @@
                                     <tr>
                                         <th>{{ "Serial No." | localize }}</th>
                                         <th>{{ "Country Name" | localize }}</th>
+                                        <th>{{ "State Name" | localize }}</th>
                                         <th style="width: 310px;">{{ "Actions" | localize }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let country of countrys | paginate: {
+                                    <tr *ngFor="let state of States | paginate: {
                                         id: 'server',
                                         itemsPerPage: pageSize,
                                         currentPage: pageNumber,
@@ -72,15 +73,16 @@
                                         };let i = index
                                     ">
                                         <td>{{ i+1 }}</td>
-                                        <td>{{ country.name }}</td>
+                                        <td>{{ statecountryname(state.countryId) }}</td>
+                                        <td>{{ state.sName }}</td>
                                         <td>
                                             <button type="button" class="btn btn-sm bg-secondary"
-                                                (click)="editCountry(country)">
+                                                (click)="editState(state)">
                                                 <i class="fas fa-pencil-alt"></i>
                                                 {{ "Edit" | localize }}
                                             </button>
                                             <button type="button" class="btn btn-sm bg-danger mx-2"
-                                                (click)="delete(country)">
+                                                (click)="delete(state)">
                                                 <i class="fas fa-trash"></i>
                                                 {{ "Delete" | localize }}
                                             </button>

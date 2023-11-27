@@ -272,6 +272,13 @@ export class CountryServiceProxy {
         return _observableOf(null as any);
     }
 
+
+    getcountrydata(): Observable<any> {
+        let url_ = `${this.baseUrl}/api/services/app/Country/GetAll`;
+
+        return this.http.get(url_, { responseType: 'json' });
+      }
+
     /**
      * @param sorting (optional)
      * @param skipCount (optional)
