@@ -1,1 +1,33 @@
-<p>create-state works!</p>
+<form class="form-horizontal" autocomplete="off" #createUserModal="ngForm" (ngSubmit)="save()">
+    <abp-modal-header [title]="'Create State' | localize" (onCloseClick)="bsModalRef.hide()">
+    </abp-modal-header>
+    <div class="modal-body">
+        <div class="form-group row required" [class.has-error]="!nameEl.valid && nameEl.touched">
+            <label class="col-md-3 col-form-label" for="name">
+                {{ "Name" | localize }}
+            </label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" name="name" id="name" required maxlength="32"
+                    [(ngModel)]="state.sName" #nameEl="ngModel" />
+                <div *ngIf="!nameEl.valid && nameEl.touched" class="help-block error-text">Name is required.</div>
+            </div>
+        </div>
+
+        <!-- Country Dropdown -->
+        <div class="form-group row required" [class.has-error]="!countryEl.valid && countryEl.touched">
+            <label class="col-md-3 col-form-label" for="country">
+                {{ "Country" | localize }}
+            </label>
+            <div class="col-md-9">
+                <select class="form-control" name="country" id="country" required [(ngModel)]="state.countryName"
+                    #countryEl="ngModel" >
+                    <option *ngFor="let country of countrydata" [value]="country.name">{{ country.name }}</option>
+                </select>
+                <div *ngIf="!countryEl.valid && countryEl.touched" class="help-block error-text">Country is required.
+                </div>
+            </div>
+        </div>
+    </div>
+    <abp-modal-footer (onCancelClick)="bsModalRef.hide()" [saveDisabled]="!createUserModal.form.valid || saving">
+    </abp-modal-footer>
+</form>
